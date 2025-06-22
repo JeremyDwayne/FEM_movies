@@ -61,6 +61,7 @@ func main() {
 	http.HandleFunc("/api/genres", movieHandler.GetGenres)
 	http.HandleFunc("/api/account/register", movieHandler.GetGenres)
 	http.HandleFunc("/api/account/authenticate", movieHandler.GetGenres)
+	http.Handle("/", http.FileServer(http.Dir("public")))
 
 	const addr = ":8080"
 	if err := http.ListenAndServe(addr, nil); err != nil {
