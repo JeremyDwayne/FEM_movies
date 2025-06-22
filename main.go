@@ -49,15 +49,18 @@ func main() {
 		log.Fatalf("Failed to initialize repository")
 	}
 
-	// Handlers
-	movieHandler := handlers.MovieHandler{
-		Storage: movieRepo,
-		Logger:  logInstance,
-	}
+	// Initialize handlers
+	movieHandler := handlers.NewMovieHandler(movieRepo, logInstance)
+	// authHandler := handlers.NewAuthHandler(userStorage, jwt, logInstance)
 
-	http.Handle("/", http.FileServer(http.Dir("public")))
-	http.HandleFunc("/api/movies/top", movieHandler.GetTopMovies)
+	// Set up routes
 	http.HandleFunc("/api/movies/random", movieHandler.GetRandomMovies)
+	http.HandleFunc("/api/movies/top", movieHandler.GetTopMovies)
+	http.HandleFunc("/api/movies/search", movieHandler.SearchMovies)
+	http.HandleFunc("/api/movies/", movieHandler.GetMovie)
+	http.HandleFunc("/api/genres", movieHandler.GetGenres)
+	http.HandleFunc("/api/account/register", movieHandler.GetGenres)
+	http.HandleFunc("/api/account/authenticate", movieHandler.GetGenres)
 
 	const addr = ":8080"
 	if err := http.ListenAndServe(addr, nil); err != nil {
