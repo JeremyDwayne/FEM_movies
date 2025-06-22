@@ -1,4 +1,4 @@
-module github.com/jeremydwayne/gojs_movies
+module github.com/jeremydwayne/FEM_movies
 
 go 1.24.4
 
